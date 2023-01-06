@@ -16,7 +16,7 @@ namespace TicTacToe {
 	public ref class MainWindow : public System::Windows::Forms::Form
 	{
 	public:
-		// constant variables to store the number of rows and columns
+		// constant variables to hold the total number of rows and columns
 		const int ROWS = 3;
 		const int COLS = 3;
 		// variable to store the current player number
@@ -51,11 +51,11 @@ namespace TicTacToe {
 		{
 			if (currentPlayer == 1)
 			{
-				lblCurrentPlayer->Text = "< --";
+				lblCurrentPlayer->Text = "<";
 			}
 			else if (currentPlayer == 2)
 			{
-				lblCurrentPlayer->Text = "-- >";
+				lblCurrentPlayer->Text = ">";
 			}
 		}
 		void endCurrentTurn(int currentPlayerNo)
@@ -279,6 +279,47 @@ namespace TicTacToe {
 					}
 				}
 			}
+			// NO WINNER (DRAW)
+			int count = 0;
+			for (int i = 0; i < ROWS; i++)
+			{
+				for (int j = 0; j < COLS; j++)
+				{
+					if (game[i][j] != 0)
+					{
+						count++;
+					}
+				}
+			}
+			if (count == 9)
+			{
+				isWinner = false;
+				btnR1C1->BackColor = Color::OrangeRed;
+				btnR1C2->BackColor = Color::OrangeRed;
+				btnR1C3->BackColor = Color::OrangeRed;
+				btnR2C1->BackColor = Color::OrangeRed;
+				btnR2C2->BackColor = Color::OrangeRed;
+				btnR2C3->BackColor = Color::OrangeRed;
+				btnR3C1->BackColor = Color::OrangeRed;
+				btnR3C2->BackColor = Color::OrangeRed;
+				btnR3C3->BackColor = Color::OrangeRed;
+				result = MessageBox::Show("It's a draw! Do you want to start over?", "It's a Draw!", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+				if (result == System::Windows::Forms::DialogResult::Yes)
+				{
+					startGame();
+					for (int i = 0; i < ROWS; i++)
+					{
+						for (int j = 0; j < COLS; j++)
+						{
+							game[i][j] = 0;
+						}
+					}
+				}
+				else
+				{
+					Application::Exit();
+				}
+			}
 			if (isWinner == true)
 			{
 				result = MessageBox::Show("Do you want a rematch?", "Rematch", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
@@ -441,7 +482,8 @@ namespace TicTacToe {
 			result = MessageBox::Show("Do you wish to reset the number of wins for each player too?", "Reset Win Counters", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 			if (result == System::Windows::Forms::DialogResult::Yes)
 			{
-				player1Wins, player2Wins = 0;
+				player1Wins = 0;
+				player2Wins = 0;
 			}
 			startGame();
 		}
@@ -495,6 +537,7 @@ namespace TicTacToe {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainWindow::typeid));
 			this->pnlBackground = (gcnew System::Windows::Forms::Panel());
 			this->pnlInformation = (gcnew System::Windows::Forms::Panel());
 			this->lblCurrentPlayer = (gcnew System::Windows::Forms::Label());
@@ -815,6 +858,7 @@ namespace TicTacToe {
 			this->Controls->Add(this->pnlBackground);
 			this->Font = (gcnew System::Drawing::Font(L"EurostileEF", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(5, 4, 5, 4);
 			this->MaximumSize = System::Drawing::Size(800, 800);
 			this->MinimumSize = System::Drawing::Size(500, 500);
