@@ -118,27 +118,88 @@ namespace TicTacToe {
 		}
 		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-
+			ownerR2C1 = currentPlayer;
+			if (ownerR2C1 == 1)
+			{
+				btnR2C1->Text = "X";
+			}
+			else if (ownerR2C1 == 2)
+			{
+				btnR2C1->Text = "O";
+			}
+			endCurrentTurn(ownerR2C1);
+			btnR2C1->Enabled = false;
 		}
 		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-
+			ownerR2C2 = currentPlayer;
+			if (ownerR2C2 == 1)
+			{
+				btnR2C2->Text = "X";
+			}
+			else if (ownerR2C2 == 2)
+			{
+				btnR2C2->Text = "O";
+			}
+			endCurrentTurn(ownerR2C2);
+			btnR2C2->Enabled = false;
 		}
 		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-
+			ownerR2C3 = currentPlayer;
+			if (ownerR2C3 == 1)
+			{
+				btnR2C3->Text = "X";
+			}
+			else if (ownerR2C3 == 2)
+			{
+				btnR2C3->Text = "O";
+			}
+			endCurrentTurn(ownerR2C3);
+			btnR2C3->Enabled = false;
 		}
 		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-
+			ownerR3C1 = currentPlayer;
+			if (ownerR3C1 == 1)
+			{
+				btnR3C1->Text = "X";
+			}
+			else if (ownerR3C1 == 2)
+			{
+				btnR3C1->Text = "O";
+			}
+			endCurrentTurn(ownerR3C1);
+			btnR3C1->Enabled = false;
 		}
 		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+			ownerR3C2 = currentPlayer;
+			if (ownerR3C2 == 1)
+			{
+				btnR3C2->Text = "X";
+			}
+			else if (ownerR3C2 == 2)
+			{
+				btnR3C2->Text = "O";
+			}
+			endCurrentTurn(ownerR3C2);
+			btnR3C2->Enabled = false;
 
 		}
 		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-
+			ownerR3C3 = currentPlayer;
+			if (ownerR3C3 == 1)
+			{
+				btnR3C3->Text = "X";
+			}
+			else if (ownerR3C3 == 2)
+			{
+				btnR3C3->Text = "O";
+			}
+			endCurrentTurn(ownerR3C3);
+			btnR3C3->Enabled = false;
 		}
 		System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e)
 		{
