@@ -2,6 +2,8 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
+
+// entry point of application
 [STAThread]
 void main(array<String^>^ args)
 {
