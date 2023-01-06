@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include<iostream>
 #include<cstdlib>
 #include<string>
@@ -16,13 +16,19 @@ namespace TicTacToe {
 	public ref class MainWindow : public System::Windows::Forms::Form
 	{
 	public:
-		// constant variables for the number of rows and columns
+		// constant variables to store the number of rows and columns
 		const int ROWS = 3;
 		const int COLS = 3;
-		// public variable to store the current player number
+		// variable to store the current player number
 		int currentPlayer;
-		// public variables to store the player number that claimed the corresponding position
+		// variables to store the player number that claimed the corresponding position
 		int ownerR1C1, ownerR1C2, ownerR1C3, ownerR2C1, ownerR2C2, ownerR2C3, ownerR3C1, ownerR3C2, ownerR3C3;
+		// variables to store the number of wins each player has
+		int player1Wins, player2Wins;
+		// variable to store boolean value of whether there is a winner yet or not
+		bool isWinner = false;
+		// variable for storing the results of answering 'Yes' or 'No' to message box prompts
+		System::Windows::Forms::DialogResult result;
 		MainWindow(void)
 		{
 			InitializeComponent();
@@ -30,14 +36,27 @@ namespace TicTacToe {
 		}
 		void startGame()
 		{
-			clearPositions();
+			resetGame();
 			currentPlayer = (rand() % 2) + 1;
 			MessageBox::Show("Player " + currentPlayer + " will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			showCurrentTurn(currentPlayer);
+			updateWinCounters();
+		}
+		void updateWinCounters()
+		{
+			lblPlayer1Wins->Text = player1Wins.ToString();
+			lblPlayer2Wins->Text = player2Wins.ToString();
 		}
 		void showCurrentTurn(int currentPlayer)
 		{
-			lblCurrentTurn->Text = "Current Turn: Player " + currentPlayer.ToString();
+			if (currentPlayer == 1)
+			{
+				lblCurrentPlayer->Text = "< --";
+			}
+			else if (currentPlayer == 2)
+			{
+				lblCurrentPlayer->Text = "-- >";
+			}
 		}
 		void endCurrentTurn(int currentPlayerNo)
 		{
@@ -52,26 +71,233 @@ namespace TicTacToe {
 			showCurrentTurn(currentPlayer);
 		}
 		// resets all buttons/positions back to their default properties
-		void clearPositions()
+		void resetGame()
 		{
+			isWinner = false;
+			// reset buttons
 			btnR1C1->Text = "";
 			btnR1C1->Enabled = true;
+			btnR1C1->BackColor = Color::Firebrick;
 			btnR1C2->Text = "";
 			btnR1C2->Enabled = true;
+			btnR1C2->BackColor = Color::Firebrick;
 			btnR1C3->Text = "";
 			btnR1C3->Enabled = true;
+			btnR1C3->BackColor = Color::Firebrick;
 			btnR2C1->Text = "";
 			btnR2C1->Enabled = true;
+			btnR2C1->BackColor = Color::Firebrick;
 			btnR2C2->Text = "";
 			btnR2C2->Enabled = true;
+			btnR2C2->BackColor = Color::Firebrick;
 			btnR2C3->Text = "";
 			btnR2C3->Enabled = true;
+			btnR2C3->BackColor = Color::Firebrick;
 			btnR3C1->Text = "";
 			btnR3C1->Enabled = true;
+			btnR3C1->BackColor = Color::Firebrick;
 			btnR3C2->Text = "";
 			btnR3C2->Enabled = true;
+			btnR3C2->BackColor = Color::Firebrick;
 			btnR3C3->Text = "";
 			btnR3C3->Enabled = true;
+			btnR3C3->BackColor = Color::Firebrick;
+			// reset claimed spaces
+			ownerR1C1 = 0;
+			ownerR1C2 = 0;
+			ownerR1C3 = 0;
+			ownerR2C1 = 0;
+			ownerR2C2 = 0;
+			ownerR2C3 = 0;
+			ownerR3C1 = 0;
+			ownerR3C2 = 0;
+			ownerR3C3 = 0;
+		}
+		void checkForWinner()
+		{
+			// public 2D int array for game (to store the player number for each claimed space)
+			int game[3][3] = { { ownerR1C1, ownerR1C2, ownerR1C3 },
+							   { ownerR2C1, ownerR2C2, ownerR2C3 },
+							   { ownerR3C1, ownerR3C2, ownerR3C3 } };
+			// ROW 1 ACROSS
+			if (game[0][0] != 0 && game[0][1] != 0 && game[0][2] != 0)
+			{
+				if (game[0][0] == game[0][1] && game[0][0] == game[0][2] && game[0][1] == game[0][2])
+				{
+					btnR1C1->BackColor = Color::Green;
+					btnR1C2->BackColor = Color::Green;
+					btnR1C3->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[0][0].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[0][0] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[0][0] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// ROW 2 ACROSS
+			else if (game[1][0] != 0 && game[1][1] != 0 && game[1][2] != 0)
+			{
+				if (game[1][0] == game[1][1] && game[1][0] == game[1][2] && game[1][1] == game[1][2])
+				{
+					btnR2C1->BackColor = Color::Green;
+					btnR2C2->BackColor = Color::Green;
+					btnR2C3->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[1][0].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[1][0] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[1][0] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// ROW 3 ACROSS
+			else if (game[2][0] != 0 && game[2][1] != 0 && game[2][2] != 0)
+			{
+				if (game[2][0] == game[2][1] && game[2][0] == game[2][2] && game[2][1] == game[2][2])
+				{
+					btnR3C1->BackColor = Color::Green;
+					btnR3C2->BackColor = Color::Green;
+					btnR3C3->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[2][0].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[2][0] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[2][0] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// COLUMN 1 DOWN
+			else if (game[0][0] != 0 && game[1][0] != 0 && game[2][0] != 0)
+			{
+				if (game[0][0] == game[1][0] && game[0][0] == game[2][0] && game[1][0] == game[2][0])
+				{
+					btnR1C1->BackColor = Color::Green;
+					btnR2C1->BackColor = Color::Green;
+					btnR3C1->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[0][0].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[0][0] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[0][0] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// COLUMN 2 DOWN
+			else if (game[0][1] != 0 && game[1][1] != 0 && game[2][1] != 0)
+			{
+				if (game[0][1] == game[1][1] && game[0][1] == game[2][1] && game[1][1] == game[2][1])
+				{
+					btnR1C2->BackColor = Color::Green;
+					btnR2C2->BackColor = Color::Green;
+					btnR3C2->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[0][1].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[0][1] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[0][1] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// COLUMN 3 DOWN
+			else if (game[0][2] != 0 && game[1][2] != 0 && game[2][2] != 0)
+			{
+				if (game[0][2] == game[1][2] && game[0][2] == game[2][2] && game[1][2] == game[2][2])
+				{
+					btnR1C3->BackColor = Color::Green;
+					btnR2C3->BackColor = Color::Green;
+					btnR3C3->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[0][2].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[0][2] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[0][2] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// DIAGONAL LEFT-TO-RIGHT
+			else if (game[0][0] != 0 && game[1][1] != 0 && game[2][2] != 0)
+			{
+				if (game[0][0] == game[1][1] && game[0][0] == game[2][2] && game[1][1] == game[2][2])
+				{
+					btnR1C1->BackColor = Color::Green;
+					btnR2C2->BackColor = Color::Green;
+					btnR3C3->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[0][0].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[0][0] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[0][0] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			// DIAGONAL RIGHT-TO-LEFT
+			else if (game[0][2] != 0 && game[1][1] != 0 && game[2][0] != 0)
+			{
+				if (game[0][2] == game[1][1] && game[0][2] == game[2][0] && game[1][1] == game[2][0])
+				{
+					btnR1C3->BackColor = Color::Green;
+					btnR2C2->BackColor = Color::Green;
+					btnR3C1->BackColor = Color::Green;
+					MessageBox::Show("Player " + game[0][2].ToString() + " Wins!", "Winner", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					isWinner = true;
+					if (game[0][2] == 1)
+					{
+						player1Wins++;
+					}
+					else if (game[0][2] == 2)
+					{
+						player2Wins++;
+					}
+				}
+			}
+			if (isWinner == true)
+			{
+				result = MessageBox::Show("Do you want a rematch?", "Rematch", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+				if (result == System::Windows::Forms::DialogResult::Yes)
+				{
+					startGame();
+					for (int i = 0; i < ROWS; i++)
+					{
+						for (int j = 0; j < COLS; j++)
+						{
+							game[i][j] = 0;
+						}
+					}
+				}
+				else
+				{
+					Application::Exit();
+				}
+			}
 		}
 	private:
 		System::Void btnR1C1_Click(System::Object^ sender, System::EventArgs^ e)
@@ -87,6 +313,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR1C1);
 			btnR1C1->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR1C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -101,9 +328,10 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR1C2);
 			btnR1C2->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR1C3_Click(System::Object^ sender, System::EventArgs^ e)
-		{	
+		{
 			ownerR1C3 = currentPlayer;
 			if (ownerR1C3 == 1)
 			{
@@ -115,6 +343,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR1C3);
 			btnR1C3->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -129,6 +358,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR2C1);
 			btnR2C1->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -143,6 +373,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR2C2);
 			btnR2C2->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -157,6 +388,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR2C3);
 			btnR2C3->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -171,6 +403,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR3C1);
 			btnR3C1->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -185,6 +418,7 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR3C2);
 			btnR3C2->Enabled = false;
+			checkForWinner();
 
 		}
 		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
@@ -200,9 +434,15 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR3C3);
 			btnR3C3->Enabled = false;
+			checkForWinner();
 		}
 		System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+			result = MessageBox::Show("Do you wish to reset the number of wins for each player too?", "Reset Win Counters", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+			if (result == System::Windows::Forms::DialogResult::Yes)
+			{
+				player1Wins, player2Wins = 0;
+			}
 			startGame();
 		}
 	protected:
@@ -231,25 +471,22 @@ namespace TicTacToe {
 	private: System::Windows::Forms::Button^ btnR2C1;
 
 	private: System::Windows::Forms::Button^ btnR1C3;
-
+	private: System::Windows::Forms::Label^ lblPlayer1;
+	private: System::Windows::Forms::Label^ lblPlayer2;
+	private: System::Windows::Forms::Label^ lblPlayer1Wins;
+	private: System::Windows::Forms::Label^ lblPlayer2Wins;
+	private: System::Windows::Forms::Label^ lblCurrentPlayer;
 	private: System::Windows::Forms::Button^ btnR1C2;
-
 	private: System::Windows::Forms::Button^ btnR1C1;
 	private: System::Windows::Forms::Panel^ pnlInformation;
-
 	private: System::Windows::Forms::Label^ lblDescription;
 	private: System::Windows::Forms::Label^ lblCurrentTurn;
 	private: System::Windows::Forms::Button^ btnReset;
-
-	protected:
-
-	protected:
-
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -260,8 +497,12 @@ namespace TicTacToe {
 		{
 			this->pnlBackground = (gcnew System::Windows::Forms::Panel());
 			this->pnlInformation = (gcnew System::Windows::Forms::Panel());
+			this->lblCurrentPlayer = (gcnew System::Windows::Forms::Label());
+			this->lblPlayer2Wins = (gcnew System::Windows::Forms::Label());
+			this->lblPlayer1Wins = (gcnew System::Windows::Forms::Label());
+			this->lblPlayer2 = (gcnew System::Windows::Forms::Label());
+			this->lblPlayer1 = (gcnew System::Windows::Forms::Label());
 			this->btnReset = (gcnew System::Windows::Forms::Button());
-			this->lblDescription = (gcnew System::Windows::Forms::Label());
 			this->lblCurrentTurn = (gcnew System::Windows::Forms::Label());
 			this->pnlGameArea = (gcnew System::Windows::Forms::Panel());
 			this->btnR3C3 = (gcnew System::Windows::Forms::Button());
@@ -295,13 +536,67 @@ namespace TicTacToe {
 			this->pnlInformation->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->pnlInformation->BackColor = System::Drawing::Color::Firebrick;
+			this->pnlInformation->Controls->Add(this->lblCurrentPlayer);
+			this->pnlInformation->Controls->Add(this->lblPlayer2Wins);
+			this->pnlInformation->Controls->Add(this->lblPlayer1Wins);
+			this->pnlInformation->Controls->Add(this->lblPlayer2);
+			this->pnlInformation->Controls->Add(this->lblPlayer1);
 			this->pnlInformation->Controls->Add(this->btnReset);
-			this->pnlInformation->Controls->Add(this->lblDescription);
 			this->pnlInformation->Controls->Add(this->lblCurrentTurn);
 			this->pnlInformation->Location = System::Drawing::Point(75, 384);
 			this->pnlInformation->Name = L"pnlInformation";
 			this->pnlInformation->Size = System::Drawing::Size(350, 64);
 			this->pnlInformation->TabIndex = 9;
+			// 
+			// lblCurrentPlayer
+			// 
+			this->lblCurrentPlayer->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblCurrentPlayer->AutoSize = true;
+			this->lblCurrentPlayer->Location = System::Drawing::Point(163, 18);
+			this->lblCurrentPlayer->Name = L"lblCurrentPlayer";
+			this->lblCurrentPlayer->Size = System::Drawing::Size(16, 18);
+			this->lblCurrentPlayer->TabIndex = 7;
+			this->lblCurrentPlayer->Text = L"<";
+			// 
+			// lblPlayer2Wins
+			// 
+			this->lblPlayer2Wins->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblPlayer2Wins->AutoSize = true;
+			this->lblPlayer2Wins->Location = System::Drawing::Point(288, 37);
+			this->lblPlayer2Wins->Name = L"lblPlayer2Wins";
+			this->lblPlayer2Wins->Size = System::Drawing::Size(18, 18);
+			this->lblPlayer2Wins->TabIndex = 6;
+			this->lblPlayer2Wins->Text = L"0";
+			// 
+			// lblPlayer1Wins
+			// 
+			this->lblPlayer1Wins->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblPlayer1Wins->AutoSize = true;
+			this->lblPlayer1Wins->Location = System::Drawing::Point(35, 38);
+			this->lblPlayer1Wins->Name = L"lblPlayer1Wins";
+			this->lblPlayer1Wins->Size = System::Drawing::Size(18, 18);
+			this->lblPlayer1Wins->TabIndex = 5;
+			this->lblPlayer1Wins->Text = L"0";
+			// 
+			// lblPlayer2
+			// 
+			this->lblPlayer2->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblPlayer2->AutoSize = true;
+			this->lblPlayer2->Location = System::Drawing::Point(254, 13);
+			this->lblPlayer2->Name = L"lblPlayer2";
+			this->lblPlayer2->Size = System::Drawing::Size(90, 18);
+			this->lblPlayer2->TabIndex = 4;
+			this->lblPlayer2->Text = L"Player 2 (O)";
+			// 
+			// lblPlayer1
+			// 
+			this->lblPlayer1->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->lblPlayer1->AutoSize = true;
+			this->lblPlayer1->Location = System::Drawing::Point(7, 13);
+			this->lblPlayer1->Name = L"lblPlayer1";
+			this->lblPlayer1->Size = System::Drawing::Size(90, 18);
+			this->lblPlayer1->TabIndex = 3;
+			this->lblPlayer1->Text = L"Player 1 (X)";
 			// 
 			// btnReset
 			// 
@@ -311,7 +606,7 @@ namespace TicTacToe {
 			this->btnReset->FlatAppearance->BorderSize = 5;
 			this->btnReset->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->btnReset->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->btnReset->Location = System::Drawing::Point(121, 38);
+			this->btnReset->Location = System::Drawing::Point(121, 36);
 			this->btnReset->Name = L"btnReset";
 			this->btnReset->Size = System::Drawing::Size(108, 23);
 			this->btnReset->TabIndex = 2;
@@ -319,21 +614,11 @@ namespace TicTacToe {
 			this->btnReset->UseVisualStyleBackColor = false;
 			this->btnReset->Click += gcnew System::EventHandler(this, &MainWindow::btnReset_Click);
 			// 
-			// lblDescription
-			// 
-			this->lblDescription->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->lblDescription->AutoSize = true;
-			this->lblDescription->Location = System::Drawing::Point(76, 19);
-			this->lblDescription->Name = L"lblDescription";
-			this->lblDescription->Size = System::Drawing::Size(184, 18);
-			this->lblDescription->TabIndex = 1;
-			this->lblDescription->Text = L"Player 1: Xs, Player 2: Os";
-			// 
 			// lblCurrentTurn
 			// 
 			this->lblCurrentTurn->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblCurrentTurn->AutoSize = true;
-			this->lblCurrentTurn->Location = System::Drawing::Point(119, 0);
+			this->lblCurrentTurn->Location = System::Drawing::Point(123, 0);
 			this->lblCurrentTurn->Name = L"lblCurrentTurn";
 			this->lblCurrentTurn->Size = System::Drawing::Size(106, 18);
 			this->lblCurrentTurn->TabIndex = 0;
@@ -543,5 +828,5 @@ namespace TicTacToe {
 
 		}
 #pragma endregion
-};
+	};
 }
