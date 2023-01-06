@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include<cstdlib>
+#include<string>
 namespace TicTacToe {
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -18,8 +19,10 @@ namespace TicTacToe {
 		// constant variables for the number of rows and columns
 		const int ROWS = 3;
 		const int COLS = 3;
-		int currentTurn;
-		int positionOwner;
+		// public variable to store the current player number
+		int currentPlayer;
+		// public variables to store the player number that claimed the corresponding position
+		int ownerR1C1, ownerR1C2, ownerR1C3, ownerR2C1, ownerR2C2, ownerR2C3, ownerR3C1, ownerR3C2, ownerR3C3;
 		MainWindow(void)
 		{
 			InitializeComponent();
@@ -27,14 +30,120 @@ namespace TicTacToe {
 		}
 		void startGame()
 		{
-			currentTurn = rand() % 2;
-			MessageBox::Show("Player " + currentTurn + " will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			clearPositions();
+			currentPlayer = (rand() % 2) + 1;
+			MessageBox::Show("Player " + currentPlayer + " will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
+			showCurrentTurn(currentPlayer);
+		}
+		void showCurrentTurn(int currentPlayer)
+		{
+			lblCurrentTurn->Text = "Current Turn: Player " + currentPlayer.ToString();
+		}
+		void endCurrentTurn(int currentPlayerNo)
+		{
+			if (currentPlayerNo == 1)
+			{
+				currentPlayer = 2;
+			}
+			else if (currentPlayerNo == 2)
+			{
+				currentPlayer = 1;
+			}
+			showCurrentTurn(currentPlayer);
+		}
+		// resets all buttons/positions back to their default properties
+		void clearPositions()
+		{
+			btnR1C1->Text = "";
+			btnR1C1->Enabled = true;
+			btnR1C2->Text = "";
+			btnR1C2->Enabled = true;
+			btnR1C3->Text = "";
+			btnR1C3->Enabled = true;
+			btnR2C1->Text = "";
+			btnR2C1->Enabled = true;
+			btnR2C2->Text = "";
+			btnR2C2->Enabled = true;
+			btnR2C3->Text = "";
+			btnR2C3->Enabled = true;
+			btnR3C1->Text = "";
+			btnR3C1->Enabled = true;
+			btnR3C2->Text = "";
+			btnR3C2->Enabled = true;
+			btnR3C3->Text = "";
+			btnR3C3->Enabled = true;
+		}
+	private:
+		System::Void btnR1C1_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			ownerR1C1 = currentPlayer;
+			if (ownerR1C1 == 1)
+			{
+				btnR1C1->Text = "X";
+			}
+			else if (ownerR1C1 == 2)
+			{
+				btnR1C1->Text = "O";
+			}
+			endCurrentTurn(ownerR1C1);
+			btnR1C1->Enabled = false;
+		}
+		System::Void btnR1C2_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			ownerR1C2 = currentPlayer;
+			if (ownerR1C2 == 1)
+			{
+				btnR1C2->Text = "X";
+			}
+			else if (ownerR1C2 == 2)
+			{
+				btnR1C2->Text = "O";
+			}
+			endCurrentTurn(ownerR1C2);
+			btnR1C2->Enabled = false;
+		}
+		System::Void btnR1C3_Click(System::Object^ sender, System::EventArgs^ e)
+		{	
+			ownerR1C3 = currentPlayer;
+			if (ownerR1C3 == 1)
+			{
+				btnR1C3->Text = "X";
+			}
+			else if (ownerR1C3 == 2)
+			{
+				btnR1C3->Text = "O";
+			}
+			endCurrentTurn(ownerR1C3);
+			btnR1C3->Enabled = false;
+		}
+		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
+		{
 
 		}
-	private: System::Void btnR1C1_Click(System::Object^ sender, System::EventArgs^ e)
-	{
+		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
+		{
 
-	}
+		}
+		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+
+		}
+		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+
+		}
+		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+
+		}
+		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+
+		}
+		System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+			startGame();
+		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -147,6 +256,7 @@ namespace TicTacToe {
 			this->btnReset->TabIndex = 2;
 			this->btnReset->Text = L"Reset Game";
 			this->btnReset->UseVisualStyleBackColor = false;
+			this->btnReset->Click += gcnew System::EventHandler(this, &MainWindow::btnReset_Click);
 			// 
 			// lblDescription
 			// 
@@ -204,6 +314,7 @@ namespace TicTacToe {
 			this->btnR3C3->TabIndex = 8;
 			this->btnR3C3->Text = L"X";
 			this->btnR3C3->UseVisualStyleBackColor = true;
+			this->btnR3C3->Click += gcnew System::EventHandler(this, &MainWindow::btnR3C3_Click);
 			// 
 			// btnR3C2
 			// 
@@ -221,6 +332,7 @@ namespace TicTacToe {
 			this->btnR3C2->TabIndex = 7;
 			this->btnR3C2->Text = L"X";
 			this->btnR3C2->UseVisualStyleBackColor = true;
+			this->btnR3C2->Click += gcnew System::EventHandler(this, &MainWindow::btnR3C2_Click);
 			// 
 			// btnR3C1
 			// 
@@ -238,6 +350,7 @@ namespace TicTacToe {
 			this->btnR3C1->TabIndex = 6;
 			this->btnR3C1->Text = L"X";
 			this->btnR3C1->UseVisualStyleBackColor = true;
+			this->btnR3C1->Click += gcnew System::EventHandler(this, &MainWindow::btnR3C1_Click);
 			// 
 			// btnR2C3
 			// 
@@ -255,6 +368,7 @@ namespace TicTacToe {
 			this->btnR2C3->TabIndex = 5;
 			this->btnR2C3->Text = L"X";
 			this->btnR2C3->UseVisualStyleBackColor = true;
+			this->btnR2C3->Click += gcnew System::EventHandler(this, &MainWindow::btnR2C3_Click);
 			// 
 			// btnR2C2
 			// 
@@ -272,6 +386,7 @@ namespace TicTacToe {
 			this->btnR2C2->TabIndex = 4;
 			this->btnR2C2->Text = L"X";
 			this->btnR2C2->UseVisualStyleBackColor = true;
+			this->btnR2C2->Click += gcnew System::EventHandler(this, &MainWindow::btnR2C2_Click);
 			// 
 			// btnR2C1
 			// 
@@ -289,6 +404,7 @@ namespace TicTacToe {
 			this->btnR2C1->TabIndex = 3;
 			this->btnR2C1->Text = L"X";
 			this->btnR2C1->UseVisualStyleBackColor = true;
+			this->btnR2C1->Click += gcnew System::EventHandler(this, &MainWindow::btnR2C1_Click);
 			// 
 			// btnR1C3
 			// 
@@ -306,6 +422,7 @@ namespace TicTacToe {
 			this->btnR1C3->TabIndex = 2;
 			this->btnR1C3->Text = L"X";
 			this->btnR1C3->UseVisualStyleBackColor = true;
+			this->btnR1C3->Click += gcnew System::EventHandler(this, &MainWindow::btnR1C3_Click);
 			// 
 			// btnR1C2
 			// 
@@ -323,6 +440,7 @@ namespace TicTacToe {
 			this->btnR1C2->TabIndex = 1;
 			this->btnR1C2->Text = L"X";
 			this->btnR1C2->UseVisualStyleBackColor = true;
+			this->btnR1C2->Click += gcnew System::EventHandler(this, &MainWindow::btnR1C2_Click);
 			// 
 			// btnR1C1
 			// 
