@@ -68,6 +68,7 @@ namespace TicTacToe {
 			{
 				currentPlayer = 1;
 			}
+			checkForWinner();
 			showCurrentTurn(currentPlayer);
 		}
 		// resets all buttons/positions back to their default properties
@@ -120,9 +121,12 @@ namespace TicTacToe {
 							   { ownerR2C1, ownerR2C2, ownerR2C3 },
 							   { ownerR3C1, ownerR3C2, ownerR3C3 } };
 			// ROW 1 ACROSS
-			if (game[0][0] != 0 && game[0][1] != 0 && game[0][2] != 0)
+			//	X	X	X
+			//	-	-	-
+			//	-	-	-
+			if (game[0][0] == game[0][1] && game[0][0] == game[0][2] && game[0][1] == game[0][2])
 			{
-				if (game[0][0] == game[0][1] && game[0][0] == game[0][2] && game[0][1] == game[0][2])
+				if (game[0][0] != 0 && game[0][1] != 0 && game[0][2] != 0)
 				{
 					btnR1C1->BackColor = Color::Green;
 					btnR1C2->BackColor = Color::Green;
@@ -140,9 +144,12 @@ namespace TicTacToe {
 				}
 			}
 			// ROW 2 ACROSS
-			else if (game[1][0] != 0 && game[1][1] != 0 && game[1][2] != 0)
+			//	-	-	-
+			//	X	X	X
+			//	-	-	-
+			else if (game[1][0] == game[1][1] && game[1][0] == game[1][2] && game[1][1] == game[1][2])
 			{
-				if (game[1][0] == game[1][1] && game[1][0] == game[1][2] && game[1][1] == game[1][2])
+				if (game[1][0] != 0 && game[1][1] != 0 && game[1][2] != 0)
 				{
 					btnR2C1->BackColor = Color::Green;
 					btnR2C2->BackColor = Color::Green;
@@ -160,9 +167,12 @@ namespace TicTacToe {
 				}
 			}
 			// ROW 3 ACROSS
-			else if (game[2][0] != 0 && game[2][1] != 0 && game[2][2] != 0)
+			//	-	-	-
+			//	-	-	-
+			//	X	X	X
+			else if (game[2][0] == game[2][1] && game[2][0] == game[2][2] && game[2][1] == game[2][2])
 			{
-				if (game[2][0] == game[2][1] && game[2][0] == game[2][2] && game[2][1] == game[2][2])
+				if (game[2][0] != 0 && game[2][1] != 0 && game[2][2] != 0)
 				{
 					btnR3C1->BackColor = Color::Green;
 					btnR3C2->BackColor = Color::Green;
@@ -180,9 +190,12 @@ namespace TicTacToe {
 				}
 			}
 			// COLUMN 1 DOWN
-			else if (game[0][0] != 0 && game[1][0] != 0 && game[2][0] != 0)
+			//	X	-	-
+			//	X	-	-
+			//	X	-	-
+			else if (game[0][0] == game[1][0] && game[0][0] == game[2][0] && game[1][0] == game[2][0])
 			{
-				if (game[0][0] == game[1][0] && game[0][0] == game[2][0] && game[1][0] == game[2][0])
+				if (game[0][0] != 0 && game[1][0] != 0 && game[2][0] != 0)
 				{
 					btnR1C1->BackColor = Color::Green;
 					btnR2C1->BackColor = Color::Green;
@@ -200,9 +213,12 @@ namespace TicTacToe {
 				}
 			}
 			// COLUMN 2 DOWN
-			else if (game[0][1] != 0 && game[1][1] != 0 && game[2][1] != 0)
+			//	-	X	-
+			//	-	X	-
+			//	-	X	-
+			else if (game[0][1] == game[1][1] && game[0][1] == game[2][1] && game[1][1] == game[2][1])
 			{
-				if (game[0][1] == game[1][1] && game[0][1] == game[2][1] && game[1][1] == game[2][1])
+				if (game[0][1] != 0 && game[1][1] != 0 && game[2][1] != 0)
 				{
 					btnR1C2->BackColor = Color::Green;
 					btnR2C2->BackColor = Color::Green;
@@ -220,9 +236,12 @@ namespace TicTacToe {
 				}
 			}
 			// COLUMN 3 DOWN
-			else if (game[0][2] != 0 && game[1][2] != 0 && game[2][2] != 0)
+			//	-	-	X
+			//	-	-	X
+			//	-	-	X
+			else if (game[0][2] == game[1][2] && game[0][2] == game[2][2] && game[1][2] == game[2][2])
 			{
-				if (game[0][2] == game[1][2] && game[0][2] == game[2][2] && game[1][2] == game[2][2])
+				if (game[0][2] != 0 && game[1][2] != 0 && game[2][2] != 0)
 				{
 					btnR1C3->BackColor = Color::Green;
 					btnR2C3->BackColor = Color::Green;
@@ -240,9 +259,12 @@ namespace TicTacToe {
 				}
 			}
 			// DIAGONAL LEFT-TO-RIGHT
-			else if (game[0][0] != 0 && game[1][1] != 0 && game[2][2] != 0)
+			//	X	-	-
+			//	-	X	-
+			//	-	-	X
+			else if (game[0][0] == game[1][1] && game[0][0] == game[2][2] && game[1][1] == game[2][2])
 			{
-				if (game[0][0] == game[1][1] && game[0][0] == game[2][2] && game[1][1] == game[2][2])
+				if (game[0][0] != 0 && game[1][1] != 0 && game[2][2] != 0)
 				{
 					btnR1C1->BackColor = Color::Green;
 					btnR2C2->BackColor = Color::Green;
@@ -260,9 +282,12 @@ namespace TicTacToe {
 				}
 			}
 			// DIAGONAL RIGHT-TO-LEFT
-			else if (game[0][2] != 0 && game[1][1] != 0 && game[2][0] != 0)
+			//	-	-	X
+			//	-	X	-
+			//	X	-	-
+			else if (game[0][2] == game[1][1] && game[0][2] == game[2][0] && game[1][1] == game[2][0])
 			{
-				if (game[0][2] == game[1][1] && game[0][2] == game[2][0] && game[1][1] == game[2][0])
+				if (game[0][2] != 0 && game[1][1] != 0 && game[2][0] != 0)
 				{
 					btnR1C3->BackColor = Color::Green;
 					btnR2C2->BackColor = Color::Green;
@@ -280,6 +305,9 @@ namespace TicTacToe {
 				}
 			}
 			// NO WINNER (DRAW)
+			//	-	-	-
+			//	-	-	-
+			//	-	-	-
 			int count = 0;
 			for (int i = 0; i < ROWS; i++)
 			{
@@ -291,7 +319,7 @@ namespace TicTacToe {
 					}
 				}
 			}
-			if (count == 9)
+			if (count == 9 && isWinner == false)
 			{
 				isWinner = false;
 				btnR1C1->BackColor = Color::OrangeRed;
@@ -354,7 +382,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR1C1);
 			btnR1C1->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR1C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -369,7 +396,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR1C2);
 			btnR1C2->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR1C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -384,7 +410,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR1C3);
 			btnR1C3->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -399,7 +424,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR2C1);
 			btnR2C1->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -414,7 +438,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR2C2);
 			btnR2C2->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -429,7 +452,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR2C3);
 			btnR2C3->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -444,7 +466,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR3C1);
 			btnR3C1->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -459,7 +480,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR3C2);
 			btnR3C2->Enabled = false;
-			checkForWinner();
 
 		}
 		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
@@ -475,7 +495,6 @@ namespace TicTacToe {
 			}
 			endCurrentTurn(ownerR3C3);
 			btnR3C3->Enabled = false;
-			checkForWinner();
 		}
 		System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e)
 		{
