@@ -605,7 +605,7 @@ namespace TicTacToe {
 			this->pnlInformation->Controls->Add(this->lblPlayer1);
 			this->pnlInformation->Controls->Add(this->btnReset);
 			this->pnlInformation->Controls->Add(this->lblCurrentTurn);
-			this->pnlInformation->Location = System::Drawing::Point(75, 384);
+			this->pnlInformation->Location = System::Drawing::Point(75, 379);
 			this->pnlInformation->Name = L"pnlInformation";
 			this->pnlInformation->Size = System::Drawing::Size(350, 64);
 			this->pnlInformation->TabIndex = 9;
@@ -701,7 +701,7 @@ namespace TicTacToe {
 			this->pnlGameArea->Controls->Add(this->btnR1C3);
 			this->pnlGameArea->Controls->Add(this->btnR1C2);
 			this->pnlGameArea->Controls->Add(this->btnR1C1);
-			this->pnlGameArea->Location = System::Drawing::Point(75, 25);
+			this->pnlGameArea->Location = System::Drawing::Point(75, 11);
 			this->pnlGameArea->Name = L"pnlGameArea";
 			this->pnlGameArea->Size = System::Drawing::Size(350, 350);
 			this->pnlGameArea->TabIndex = 0;
@@ -709,11 +709,12 @@ namespace TicTacToe {
 			// btnR3C3
 			// 
 			this->btnR3C3->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR3C3->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR3C3->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR3C3->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR3C3->FlatAppearance->BorderSize = 5;
 			this->btnR3C3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR3C3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR3C3->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR3C3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR3C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR3C3->Location = System::Drawing::Point(247, 247);
@@ -727,11 +728,12 @@ namespace TicTacToe {
 			// btnR3C2
 			// 
 			this->btnR3C2->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR3C2->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR3C2->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR3C2->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR3C2->FlatAppearance->BorderSize = 5;
 			this->btnR3C2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR3C2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR3C2->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR3C2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR3C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR3C2->Location = System::Drawing::Point(125, 247);
@@ -745,11 +747,12 @@ namespace TicTacToe {
 			// btnR3C1
 			// 
 			this->btnR3C1->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR3C1->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR3C1->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR3C1->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR3C1->FlatAppearance->BorderSize = 5;
 			this->btnR3C1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR3C1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR3C1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR3C1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR3C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR3C1->Location = System::Drawing::Point(3, 247);
@@ -763,11 +766,12 @@ namespace TicTacToe {
 			// btnR2C3
 			// 
 			this->btnR2C3->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR2C3->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR2C3->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR2C3->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR2C3->FlatAppearance->BorderSize = 5;
 			this->btnR2C3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR2C3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR2C3->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR2C3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR2C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR2C3->Location = System::Drawing::Point(247, 125);
@@ -781,11 +785,12 @@ namespace TicTacToe {
 			// btnR2C2
 			// 
 			this->btnR2C2->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR2C2->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR2C2->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR2C2->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR2C2->FlatAppearance->BorderSize = 5;
 			this->btnR2C2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR2C2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR2C2->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR2C2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR2C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR2C2->Location = System::Drawing::Point(125, 125);
@@ -799,11 +804,12 @@ namespace TicTacToe {
 			// btnR2C1
 			// 
 			this->btnR2C1->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR2C1->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR2C1->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR2C1->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR2C1->FlatAppearance->BorderSize = 5;
 			this->btnR2C1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR2C1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR2C1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR2C1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR2C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR2C1->Location = System::Drawing::Point(3, 125);
@@ -817,11 +823,12 @@ namespace TicTacToe {
 			// btnR1C3
 			// 
 			this->btnR1C3->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR1C3->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR1C3->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR1C3->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR1C3->FlatAppearance->BorderSize = 5;
 			this->btnR1C3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR1C3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR1C3->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR1C3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR1C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR1C3->Location = System::Drawing::Point(247, 3);
@@ -835,11 +842,12 @@ namespace TicTacToe {
 			// btnR1C2
 			// 
 			this->btnR1C2->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR1C2->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR1C2->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR1C2->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR1C2->FlatAppearance->BorderSize = 5;
 			this->btnR1C2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR1C2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR1C2->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR1C2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR1C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR1C2->Location = System::Drawing::Point(125, 3);
@@ -853,11 +861,12 @@ namespace TicTacToe {
 			// btnR1C1
 			// 
 			this->btnR1C1->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->btnR1C1->FlatAppearance->BorderColor = System::Drawing::Color::Black;
+			this->btnR1C1->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->btnR1C1->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
 			this->btnR1C1->FlatAppearance->BorderSize = 5;
 			this->btnR1C1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR1C1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
-			this->btnR1C1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->btnR1C1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
 			this->btnR1C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->btnR1C1->Location = System::Drawing::Point(3, 3);
