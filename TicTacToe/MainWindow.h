@@ -32,22 +32,22 @@ namespace TicTacToe {
 		MainWindow(void)
 		{
 			InitializeComponent();
-			startGame();
+			StartGame();
 		}
-		void startGame()
+		void StartGame()
 		{
-			resetGame();
+			ResetGame();
 			currentPlayer = (rand() % 2) + 1;
 			MessageBox::Show("Player " + currentPlayer + " will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			showCurrentTurn(currentPlayer);
-			updateWinCounters();
+			ShowCurrentTurn(currentPlayer);
+			UpdateWinCounters();
 		}
-		void updateWinCounters()
+		void UpdateWinCounters()
 		{
 			lblPlayer1Wins->Text = player1Wins.ToString();
 			lblPlayer2Wins->Text = player2Wins.ToString();
 		}
-		void showCurrentTurn(int currentPlayer)
+		void ShowCurrentTurn(int currentPlayer)
 		{
 			if (currentPlayer == 1)
 			{
@@ -58,7 +58,7 @@ namespace TicTacToe {
 				lblCurrentPlayer->Text = ">";
 			}
 		}
-		void endCurrentTurn(int currentPlayerNo)
+		void EndCurrentTurn(int currentPlayerNo)
 		{
 			if (currentPlayerNo == 1)
 			{
@@ -68,11 +68,13 @@ namespace TicTacToe {
 			{
 				currentPlayer = 1;
 			}
-			checkForWinner();
-			showCurrentTurn(currentPlayer);
+			CheckForWinner();
+			ShowCurrentTurn(currentPlayer);
 		}
-		// resets all buttons/positions back to their default properties
-		void resetGame()
+		/// <summary>
+		/// resets all buttons / positions back to their default properties
+		/// </summary>
+		void ResetGame()
 		{
 			isWinner = false;
 			// reset buttons
@@ -114,7 +116,7 @@ namespace TicTacToe {
 			ownerR3C2 = 0;
 			ownerR3C3 = 0;
 		}
-		void checkForWinner()
+		void CheckForWinner()
 		{
 			// public 2D int array for game (to store the player number for each claimed space)
 			int game[3][3] = { { ownerR1C1, ownerR1C2, ownerR1C3 },
@@ -334,7 +336,7 @@ namespace TicTacToe {
 				result = MessageBox::Show("It's a draw! Do you want to start over?", "It's a Draw!", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					startGame();
+					StartGame();
 					for (int i = 0; i < ROWS; i++)
 					{
 						for (int j = 0; j < COLS; j++)
@@ -353,7 +355,7 @@ namespace TicTacToe {
 				result = MessageBox::Show("Do you want a rematch?", "Rematch", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					startGame();
+					StartGame();
 					for (int i = 0; i < ROWS; i++)
 					{
 						for (int j = 0; j < COLS; j++)
@@ -380,7 +382,7 @@ namespace TicTacToe {
 			{
 				btnR1C1->Text = "O";
 			}
-			endCurrentTurn(ownerR1C1);
+			EndCurrentTurn(ownerR1C1);
 			btnR1C1->Enabled = false;
 		}
 		System::Void btnR1C2_Click(System::Object^ sender, System::EventArgs^ e)
@@ -394,7 +396,7 @@ namespace TicTacToe {
 			{
 				btnR1C2->Text = "O";
 			}
-			endCurrentTurn(ownerR1C2);
+			EndCurrentTurn(ownerR1C2);
 			btnR1C2->Enabled = false;
 		}
 		System::Void btnR1C3_Click(System::Object^ sender, System::EventArgs^ e)
@@ -408,7 +410,7 @@ namespace TicTacToe {
 			{
 				btnR1C3->Text = "O";
 			}
-			endCurrentTurn(ownerR1C3);
+			EndCurrentTurn(ownerR1C3);
 			btnR1C3->Enabled = false;
 		}
 		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
@@ -422,7 +424,7 @@ namespace TicTacToe {
 			{
 				btnR2C1->Text = "O";
 			}
-			endCurrentTurn(ownerR2C1);
+			EndCurrentTurn(ownerR2C1);
 			btnR2C1->Enabled = false;
 		}
 		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
@@ -436,7 +438,7 @@ namespace TicTacToe {
 			{
 				btnR2C2->Text = "O";
 			}
-			endCurrentTurn(ownerR2C2);
+			EndCurrentTurn(ownerR2C2);
 			btnR2C2->Enabled = false;
 		}
 		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
@@ -450,7 +452,7 @@ namespace TicTacToe {
 			{
 				btnR2C3->Text = "O";
 			}
-			endCurrentTurn(ownerR2C3);
+			EndCurrentTurn(ownerR2C3);
 			btnR2C3->Enabled = false;
 		}
 		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
@@ -464,7 +466,7 @@ namespace TicTacToe {
 			{
 				btnR3C1->Text = "O";
 			}
-			endCurrentTurn(ownerR3C1);
+			EndCurrentTurn(ownerR3C1);
 			btnR3C1->Enabled = false;
 		}
 		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
@@ -478,7 +480,7 @@ namespace TicTacToe {
 			{
 				btnR3C2->Text = "O";
 			}
-			endCurrentTurn(ownerR3C2);
+			EndCurrentTurn(ownerR3C2);
 			btnR3C2->Enabled = false;
 
 		}
@@ -493,7 +495,7 @@ namespace TicTacToe {
 			{
 				btnR3C3->Text = "O";
 			}
-			endCurrentTurn(ownerR3C3);
+			EndCurrentTurn(ownerR3C3);
 			btnR3C3->Enabled = false;
 		}
 		System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e)
@@ -504,7 +506,7 @@ namespace TicTacToe {
 				player1Wins = 0;
 				player2Wins = 0;
 			}
-			startGame();
+			StartGame();
 		}
 	protected:
 		/// <summary>
