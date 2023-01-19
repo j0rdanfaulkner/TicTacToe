@@ -118,14 +118,15 @@ namespace TicTacToe {
 		}
 		void CheckForWinner()
 		{
-			// public 2D int array for game (to store the player number for each claimed space)
+			// 2D int array for game (to store the player number for each claimed space)
 			int game[3][3] = { { ownerR1C1, ownerR1C2, ownerR1C3 },
 							   { ownerR2C1, ownerR2C2, ownerR2C3 },
 							   { ownerR3C1, ownerR3C2, ownerR3C3 } };
 			// ROW 1 ACROSS
-			//	X	X	X
-			//	-	-	-
-			//	-	-	-
+			//      C0  C1  C2
+			//	R0  X	X	X
+			//	R1  -	-	-
+			//	R2  -	-	-
 			if (game[0][0] == game[0][1] && game[0][0] == game[0][2] && game[0][1] == game[0][2])
 			{
 				if (game[0][0] != 0 && game[0][1] != 0 && game[0][2] != 0)
@@ -146,9 +147,10 @@ namespace TicTacToe {
 				}
 			}
 			// ROW 2 ACROSS
-			//	-	-	-
-			//	X	X	X
-			//	-	-	-
+			//      C0  C1  C2
+			//	R0  -	-	-
+			//	R1  X	X	X
+			//	R2  -	-	-
 			else if (game[1][0] == game[1][1] && game[1][0] == game[1][2] && game[1][1] == game[1][2])
 			{
 				if (game[1][0] != 0 && game[1][1] != 0 && game[1][2] != 0)
@@ -169,9 +171,10 @@ namespace TicTacToe {
 				}
 			}
 			// ROW 3 ACROSS
-			//	-	-	-
-			//	-	-	-
-			//	X	X	X
+			//      C0  C1  C2
+			//	R0  -	-	-
+			//	R1  -	-	-
+			//	R2  X	X	X
 			else if (game[2][0] == game[2][1] && game[2][0] == game[2][2] && game[2][1] == game[2][2])
 			{
 				if (game[2][0] != 0 && game[2][1] != 0 && game[2][2] != 0)
@@ -192,9 +195,10 @@ namespace TicTacToe {
 				}
 			}
 			// COLUMN 1 DOWN
-			//	X	-	-
-			//	X	-	-
-			//	X	-	-
+			//      C0  C1  C2
+			//	R0  X	-	-
+			//	R1  X	-	-
+			//	R2  X	-	-
 			else if (game[0][0] == game[1][0] && game[0][0] == game[2][0] && game[1][0] == game[2][0])
 			{
 				if (game[0][0] != 0 && game[1][0] != 0 && game[2][0] != 0)
@@ -215,9 +219,10 @@ namespace TicTacToe {
 				}
 			}
 			// COLUMN 2 DOWN
-			//	-	X	-
-			//	-	X	-
-			//	-	X	-
+			//      C0  C1  C2
+			//	R0  -	X	-
+			//	R1  -	X	-
+			//	R2  -	X	-
 			else if (game[0][1] == game[1][1] && game[0][1] == game[2][1] && game[1][1] == game[2][1])
 			{
 				if (game[0][1] != 0 && game[1][1] != 0 && game[2][1] != 0)
@@ -238,9 +243,10 @@ namespace TicTacToe {
 				}
 			}
 			// COLUMN 3 DOWN
-			//	-	-	X
-			//	-	-	X
-			//	-	-	X
+			//      C0  C1  C2
+			//	R0  -	-	X
+			//	R1  -	-	X
+			//	R2  -	-	X
 			else if (game[0][2] == game[1][2] && game[0][2] == game[2][2] && game[1][2] == game[2][2])
 			{
 				if (game[0][2] != 0 && game[1][2] != 0 && game[2][2] != 0)
@@ -261,9 +267,10 @@ namespace TicTacToe {
 				}
 			}
 			// DIAGONAL LEFT-TO-RIGHT
-			//	X	-	-
-			//	-	X	-
-			//	-	-	X
+			//      C0  C1  C2
+			//	R0  X	-	-
+			//	R1  -	X	-
+			//	R2  -	-	X
 			else if (game[0][0] == game[1][1] && game[0][0] == game[2][2] && game[1][1] == game[2][2])
 			{
 				if (game[0][0] != 0 && game[1][1] != 0 && game[2][2] != 0)
@@ -284,9 +291,10 @@ namespace TicTacToe {
 				}
 			}
 			// DIAGONAL RIGHT-TO-LEFT
-			//	-	-	X
-			//	-	X	-
-			//	X	-	-
+			//      C0  C1  C2
+			//	R0  -	-	X
+			//	R1  -	X	-
+			//	R2  X	-	-
 			else if (game[0][2] == game[1][1] && game[0][2] == game[2][0] && game[1][1] == game[2][0])
 			{
 				if (game[0][2] != 0 && game[1][1] != 0 && game[2][0] != 0)
@@ -382,8 +390,8 @@ namespace TicTacToe {
 			{
 				btnR1C1->Text = "O";
 			}
-			EndCurrentTurn(ownerR1C1);
 			btnR1C1->Enabled = false;
+			EndCurrentTurn(ownerR1C1);
 		}
 		System::Void btnR1C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -396,8 +404,8 @@ namespace TicTacToe {
 			{
 				btnR1C2->Text = "O";
 			}
-			EndCurrentTurn(ownerR1C2);
 			btnR1C2->Enabled = false;
+			EndCurrentTurn(ownerR1C2);
 		}
 		System::Void btnR1C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -410,8 +418,8 @@ namespace TicTacToe {
 			{
 				btnR1C3->Text = "O";
 			}
-			EndCurrentTurn(ownerR1C3);
 			btnR1C3->Enabled = false;
+			EndCurrentTurn(ownerR1C3);
 		}
 		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -424,8 +432,8 @@ namespace TicTacToe {
 			{
 				btnR2C1->Text = "O";
 			}
-			EndCurrentTurn(ownerR2C1);
 			btnR2C1->Enabled = false;
+			EndCurrentTurn(ownerR2C1);
 		}
 		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -438,8 +446,8 @@ namespace TicTacToe {
 			{
 				btnR2C2->Text = "O";
 			}
-			EndCurrentTurn(ownerR2C2);
 			btnR2C2->Enabled = false;
+			EndCurrentTurn(ownerR2C2);
 		}
 		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -452,8 +460,8 @@ namespace TicTacToe {
 			{
 				btnR2C3->Text = "O";
 			}
-			EndCurrentTurn(ownerR2C3);
 			btnR2C3->Enabled = false;
+			EndCurrentTurn(ownerR2C3);
 		}
 		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -466,8 +474,8 @@ namespace TicTacToe {
 			{
 				btnR3C1->Text = "O";
 			}
-			EndCurrentTurn(ownerR3C1);
 			btnR3C1->Enabled = false;
+			EndCurrentTurn(ownerR3C1);
 		}
 		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
@@ -480,8 +488,8 @@ namespace TicTacToe {
 			{
 				btnR3C2->Text = "O";
 			}
-			EndCurrentTurn(ownerR3C2);
 			btnR3C2->Enabled = false;
+			EndCurrentTurn(ownerR3C2);
 
 		}
 		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
@@ -495,8 +503,8 @@ namespace TicTacToe {
 			{
 				btnR3C3->Text = "O";
 			}
-			EndCurrentTurn(ownerR3C3);
 			btnR3C3->Enabled = false;
+			EndCurrentTurn(ownerR3C3);
 		}
 		System::Void btnReset_Click(System::Object^ sender, System::EventArgs^ e)
 		{
