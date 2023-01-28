@@ -15,12 +15,11 @@ namespace TicTacToe {
 	public ref class OpponentSelectionWindow : public System::Windows::Forms::Form
 	{
 	public:
+		// variable to store the selected opponent type
+		int opponentType;
 		OpponentSelectionWindow(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
@@ -36,10 +35,14 @@ namespace TicTacToe {
 		}
 	private: System::Windows::Forms::Panel^ pnlBackground;
 	private: System::Windows::Forms::Panel^ pnlSelectionArea;
-	private: System::Windows::Forms::Label^ label2;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Label^ lblSelectOpponent;
+	private: System::Windows::Forms::Label^ lblTicTacToe;
+
+
+	private: System::Windows::Forms::Button^ btnHuman;
+
+	private: System::Windows::Forms::Button^ btnCPU;
+
 	protected:
 
 
@@ -59,10 +62,10 @@ namespace TicTacToe {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(OpponentSelectionWindow::typeid));
 			this->pnlBackground = (gcnew System::Windows::Forms::Panel());
 			this->pnlSelectionArea = (gcnew System::Windows::Forms::Panel());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->lblSelectOpponent = (gcnew System::Windows::Forms::Label());
+			this->lblTicTacToe = (gcnew System::Windows::Forms::Label());
+			this->btnHuman = (gcnew System::Windows::Forms::Button());
+			this->btnCPU = (gcnew System::Windows::Forms::Button());
 			this->pnlBackground->SuspendLayout();
 			this->pnlSelectionArea->SuspendLayout();
 			this->SuspendLayout();
@@ -81,62 +84,64 @@ namespace TicTacToe {
 			// 
 			this->pnlSelectionArea->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->pnlSelectionArea->BackColor = System::Drawing::Color::Firebrick;
-			this->pnlSelectionArea->Controls->Add(this->label2);
-			this->pnlSelectionArea->Controls->Add(this->label1);
-			this->pnlSelectionArea->Controls->Add(this->button2);
-			this->pnlSelectionArea->Controls->Add(this->button1);
+			this->pnlSelectionArea->Controls->Add(this->lblSelectOpponent);
+			this->pnlSelectionArea->Controls->Add(this->lblTicTacToe);
+			this->pnlSelectionArea->Controls->Add(this->btnHuman);
+			this->pnlSelectionArea->Controls->Add(this->btnCPU);
 			this->pnlSelectionArea->Location = System::Drawing::Point(25, 56);
 			this->pnlSelectionArea->Name = L"pnlSelectionArea";
 			this->pnlSelectionArea->Size = System::Drawing::Size(282, 180);
 			this->pnlSelectionArea->TabIndex = 0;
 			// 
-			// button1
+			// lblSelectOpponent
 			// 
-			this->button1->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->button1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Maroon;
-			this->button1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::IndianRed;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Eurostile LT Std Ext Two", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->lblSelectOpponent->AutoSize = true;
+			this->lblSelectOpponent->Location = System::Drawing::Point(59, 63);
+			this->lblSelectOpponent->Name = L"lblSelectOpponent";
+			this->lblSelectOpponent->Size = System::Drawing::Size(165, 23);
+			this->lblSelectOpponent->TabIndex = 4;
+			this->lblSelectOpponent->Text = L"Select Opponent:";
+			// 
+			// lblTicTacToe
+			// 
+			this->lblTicTacToe->AutoSize = true;
+			this->lblTicTacToe->Location = System::Drawing::Point(86, 20);
+			this->lblTicTacToe->Name = L"lblTicTacToe";
+			this->lblTicTacToe->Size = System::Drawing::Size(110, 23);
+			this->lblTicTacToe->TabIndex = 3;
+			this->lblTicTacToe->Text = L"Tic-Tac-Toe";
+			// 
+			// btnHuman
+			// 
+			this->btnHuman->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->btnHuman->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Maroon;
+			this->btnHuman->FlatAppearance->MouseOverBackColor = System::Drawing::Color::IndianRed;
+			this->btnHuman->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnHuman->Font = (gcnew System::Drawing::Font(L"Eurostile LT Std Ext Two", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(17, 105);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(116, 57);
-			this->button1->TabIndex = 1;
-			this->button1->Text = L"VS CPU";
-			this->button1->UseVisualStyleBackColor = true;
+			this->btnHuman->Location = System::Drawing::Point(149, 105);
+			this->btnHuman->Name = L"btnHuman";
+			this->btnHuman->Size = System::Drawing::Size(116, 57);
+			this->btnHuman->TabIndex = 2;
+			this->btnHuman->Text = L"VS HUMAN";
+			this->btnHuman->UseVisualStyleBackColor = true;
+			this->btnHuman->Click += gcnew System::EventHandler(this, &OpponentSelectionWindow::btnHuman_Click);
 			// 
-			// button2
+			// btnCPU
 			// 
-			this->button2->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
-			this->button2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Maroon;
-			this->button2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::IndianRed;
-			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->button2->Font = (gcnew System::Drawing::Font(L"Eurostile LT Std Ext Two", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnCPU->FlatAppearance->BorderColor = System::Drawing::Color::Maroon;
+			this->btnCPU->FlatAppearance->MouseDownBackColor = System::Drawing::Color::Maroon;
+			this->btnCPU->FlatAppearance->MouseOverBackColor = System::Drawing::Color::IndianRed;
+			this->btnCPU->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->btnCPU->Font = (gcnew System::Drawing::Font(L"Eurostile LT Std Ext Two", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button2->Location = System::Drawing::Point(149, 105);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(116, 57);
-			this->button2->TabIndex = 2;
-			this->button2->Text = L"VS HUMAN";
-			this->button2->UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(86, 20);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(110, 23);
-			this->label1->TabIndex = 3;
-			this->label1->Text = L"Tic-Tac-Toe";
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(59, 63);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(165, 23);
-			this->label2->TabIndex = 4;
-			this->label2->Text = L"Select Opponent:";
+			this->btnCPU->Location = System::Drawing::Point(17, 105);
+			this->btnCPU->Name = L"btnCPU";
+			this->btnCPU->Size = System::Drawing::Size(116, 57);
+			this->btnCPU->TabIndex = 1;
+			this->btnCPU->Text = L"VS CPU";
+			this->btnCPU->UseVisualStyleBackColor = true;
+			this->btnCPU->Click += gcnew System::EventHandler(this, &OpponentSelectionWindow::btnCPU_Click);
 			// 
 			// OpponentSelectionWindow
 			// 
@@ -161,5 +166,13 @@ namespace TicTacToe {
 
 		}
 #pragma endregion
-	};
+	private: System::Void btnCPU_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		opponentType = 1;
+	}
+	private: System::Void btnHuman_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		opponentType = 2;
+	}
+};
 }

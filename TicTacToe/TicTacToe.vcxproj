@@ -137,6 +137,9 @@
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OpponentSelectionWindow.resx">
+      <DependentUpon>OpponentSelectionWindow.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TicTacToe.rc" />

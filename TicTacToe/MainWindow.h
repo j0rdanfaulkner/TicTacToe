@@ -2,6 +2,7 @@
 #include<iostream>
 #include<cstdlib>
 #include<string>
+#include "OpponentSelectionWindow.h"
 namespace TicTacToe {
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -31,6 +32,16 @@ namespace TicTacToe {
 		System::Windows::Forms::DialogResult result;
 		MainWindow(void)
 		{
+			OpponentSelectionWindow^ selectOpponentForm = gcnew OpponentSelectionWindow;
+			selectOpponentForm->Show();
+			if (selectOpponentForm->opponentType == 1)
+			{
+
+			}
+			else if (selectOpponentForm->opponentType == 2)
+			{
+
+			}
 			InitializeComponent();
 			StartGame();
 		}
