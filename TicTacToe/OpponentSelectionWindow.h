@@ -27,11 +27,14 @@ namespace TicTacToe {
 		{
 			if (opponentType == 1)
 			{
+				MessageBox::Show("CPU opponent is not available yet, 2 player mode selected", "Human Opponent Selected", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				this->Hide();
 				MainWindow^ mainWindow = gcnew MainWindow(opponentType);
 				mainWindow->Show();
 			}
 			else if (opponentType == 2)
 			{
+				this->Hide();
 				MainWindow^ mainWindow = gcnew MainWindow(opponentType);
 				mainWindow->Show();
 			}

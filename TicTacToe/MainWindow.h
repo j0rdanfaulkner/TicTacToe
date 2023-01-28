@@ -35,13 +35,27 @@ namespace TicTacToe {
 		MainWindow(int opponentType)
 		{
 			InitializeComponent();
-			StartGame(opponentType);
+			selectedOpponentType = opponentType;
+			StartGame(selectedOpponentType);
 		}
 		void StartGame(int selectedOpponentType)
 		{
 			if (selectedOpponentType == 1)
 			{
-
+				lblPlayer1->Text = "   You (X)  ";
+				lblPlayer2->Text = "   CPU (O)  ";
+				ResetGame();
+				currentPlayer = (rand() % 2) + 1;
+				if (currentPlayer == 1)
+				{
+					MessageBox::Show("You will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				else if (currentPlayer == 2)
+				{
+					MessageBox::Show("The CPU will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				ShowCurrentTurn(currentPlayer);
+				UpdateWinCounters();
 			}
 			else if (selectedOpponentType == 2)
 			{
