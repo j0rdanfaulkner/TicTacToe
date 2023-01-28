@@ -490,7 +490,6 @@ namespace TicTacToe {
 			}
 			btnR3C2->Enabled = false;
 			EndCurrentTurn(ownerR3C2);
-
 		}
 		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{

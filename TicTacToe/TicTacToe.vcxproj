@@ -115,6 +115,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="OpponentSelectionWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -125,6 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainWindow.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="OpponentSelectionWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
