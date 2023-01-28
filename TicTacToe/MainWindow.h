@@ -36,9 +36,9 @@ namespace TicTacToe {
 		{
 			InitializeComponent();
 			selectedOpponentType = opponentType;
-			StartGame(selectedOpponentType);
+			StartGame();
 		}
-		void StartGame(int selectedOpponentType)
+		void StartGame()
 		{
 			if (selectedOpponentType == 1)
 			{
@@ -53,6 +53,7 @@ namespace TicTacToe {
 				else if (currentPlayer == 2)
 				{
 					MessageBox::Show("The CPU will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
+					CPUTurn();
 				}
 				ShowCurrentTurn(currentPlayer);
 				UpdateWinCounters();
@@ -84,16 +85,113 @@ namespace TicTacToe {
 		}
 		void EndCurrentTurn(int currentPlayerNo)
 		{
-			if (currentPlayerNo == 1)
+			if (selectedOpponentType == 1)
 			{
-				currentPlayer = 2;
+				if (currentPlayerNo == 1)
+				{
+					currentPlayer = 2;
+					CPUTurn();
+				}
+				else if (currentPlayerNo == 2)
+				{
+					currentPlayer = 1;
+				}
+				CheckForWinner();
+				ShowCurrentTurn(currentPlayer);
 			}
-			else if (currentPlayerNo == 2)
+			else if (selectedOpponentType == 2)
 			{
-				currentPlayer = 1;
+				if (currentPlayerNo == 1)
+				{
+					currentPlayer = 2;
+				}
+				else if (currentPlayerNo == 2)
+				{
+					currentPlayer = 1;
+				}
+				CheckForWinner();
+				ShowCurrentTurn(currentPlayer);
 			}
-			CheckForWinner();
-			ShowCurrentTurn(currentPlayer);
+		}
+		void CPUTurn()
+		{
+			int moves[3][3] = { { ownerR1C1, ownerR1C2, ownerR1C3 },
+							    { ownerR2C1, ownerR2C2, ownerR2C3 },
+							    { ownerR3C1, ownerR3C2, ownerR3C3 } };
+			int randomRow = rand() % 3;
+			int randomCol = rand() % 3;
+			if (moves[randomRow][randomCol] == 0)
+			{
+				// button indexes
+				if (randomRow == 0)
+				{
+					if (randomCol == 0)
+					{
+						ownerR1C1 = 2;
+						btnR1C1->Text = "O";
+						btnR1C1->Enabled = false;
+					}
+					else if (randomCol == 1)
+					{
+						ownerR1C2 = 2;
+						btnR1C2->Text = "O";
+						btnR1C2->Enabled = false;
+					}
+					else if (randomCol == 2)
+					{
+						ownerR1C3 = 2;
+						btnR1C3->Text = "O";
+						btnR1C3->Enabled = false;
+					}
+				}
+				else if (randomRow == 1)
+				{
+					if (randomCol == 0)
+					{
+						ownerR2C1 = 2;
+						btnR2C1->Text = "O";
+						btnR2C1->Enabled = false;
+					}
+					else if (randomCol == 1)
+					{
+						ownerR2C2 = 2;
+						btnR2C2->Text = "O";
+						btnR2C2->Enabled = false;
+					}
+					else if (randomCol == 2)
+					{
+						ownerR2C3 = 2;
+						btnR2C3->Text = "O";
+						btnR2C3->Enabled = false;
+					}
+				}
+				else if (randomRow == 2)
+				{
+					if (randomCol == 0)
+					{
+						ownerR3C1 = 2;
+						btnR3C1->Text = "O";
+						btnR3C1->Enabled = false;
+					}
+					else if (randomCol == 1)
+					{
+						ownerR3C2 = 2;
+						btnR3C2->Text = "O";
+						btnR3C2->Enabled = false;
+					}
+					else if (randomCol == 2)
+					{
+						ownerR3C3 = 2;
+						btnR3C3->Text = "O";
+						btnR3C3->Enabled = false;
+					}
+				}
+				EndCurrentTurn(2);
+			}
+			else if (moves[randomRow][randomCol] != 0)
+			{
+				CPUTurn();
+			}
 		}
 		/// <summary>
 		/// resets all buttons / positions back to their default properties
@@ -368,7 +466,7 @@ namespace TicTacToe {
 				result = MessageBox::Show("It's a draw! Do you want to start over?", "It's a Draw!", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					StartGame(selectedOpponentType);
+					StartGame();
 					for (int i = 0; i < ROWS; i++)
 					{
 						for (int j = 0; j < COLS; j++)
@@ -387,7 +485,7 @@ namespace TicTacToe {
 				result = MessageBox::Show("Do you want a rematch?", "Rematch", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					StartGame(selectedOpponentType);
+					StartGame();
 					for (int i = 0; i < ROWS; i++)
 					{
 						for (int j = 0; j < COLS; j++)
@@ -405,126 +503,198 @@ namespace TicTacToe {
 	private:
 		System::Void btnR1C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR1C1 = currentPlayer;
-			if (ownerR1C1 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR1C1 = currentPlayer;
 				btnR1C1->Text = "X";
 			}
-			else if (ownerR1C1 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR1C1->Text = "O";
+				ownerR1C1 = currentPlayer;
+				if (ownerR1C1 == 1)
+				{
+					btnR1C1->Text = "X";
+				}
+				else if (ownerR1C1 == 2)
+				{
+					btnR1C1->Text = "O";
+				}
 			}
 			btnR1C1->Enabled = false;
 			EndCurrentTurn(ownerR1C1);
 		}
 		System::Void btnR1C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR1C2 = currentPlayer;
-			if (ownerR1C2 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR1C2 = currentPlayer;
 				btnR1C2->Text = "X";
 			}
-			else if (ownerR1C2 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR1C2->Text = "O";
+				ownerR1C2 = currentPlayer;
+				if (ownerR1C2 == 1)
+				{
+					btnR1C2->Text = "X";
+				}
+				else if (ownerR1C2 == 2)
+				{
+					btnR1C2->Text = "O";
+				}
 			}
 			btnR1C2->Enabled = false;
 			EndCurrentTurn(ownerR1C2);
 		}
 		System::Void btnR1C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR1C3 = currentPlayer;
-			if (ownerR1C3 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR1C2 = currentPlayer;
 				btnR1C3->Text = "X";
 			}
-			else if (ownerR1C3 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR1C3->Text = "O";
+				ownerR1C3 = currentPlayer;
+				if (ownerR1C3 == 1)
+				{
+					btnR1C3->Text = "X";
+				}
+				else if (ownerR1C3 == 2)
+				{
+					btnR1C3->Text = "O";
+				}
 			}
 			btnR1C3->Enabled = false;
 			EndCurrentTurn(ownerR1C3);
 		}
 		System::Void btnR2C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR2C1 = currentPlayer;
-			if (ownerR2C1 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR2C1 = currentPlayer;
 				btnR2C1->Text = "X";
 			}
-			else if (ownerR2C1 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR2C1->Text = "O";
+				ownerR2C1 = currentPlayer;
+				if (ownerR2C1 == 1)
+				{
+					btnR2C1->Text = "X";
+				}
+				else if (ownerR2C1 == 2)
+				{
+					btnR2C1->Text = "O";
+				}
 			}
 			btnR2C1->Enabled = false;
 			EndCurrentTurn(ownerR2C1);
 		}
 		System::Void btnR2C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR2C2 = currentPlayer;
-			if (ownerR2C2 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR2C2 = currentPlayer;
 				btnR2C2->Text = "X";
 			}
-			else if (ownerR2C2 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR2C2->Text = "O";
+				ownerR2C2 = currentPlayer;
+				if (ownerR2C2 == 1)
+				{
+					btnR2C2->Text = "X";
+				}
+				else if (ownerR2C2 == 2)
+				{
+					btnR2C2->Text = "O";
+				}
 			}
 			btnR2C2->Enabled = false;
 			EndCurrentTurn(ownerR2C2);
 		}
 		System::Void btnR2C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR2C3 = currentPlayer;
-			if (ownerR2C3 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR2C3 = currentPlayer;
 				btnR2C3->Text = "X";
 			}
-			else if (ownerR2C3 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR2C3->Text = "O";
+				ownerR2C3 = currentPlayer;
+				if (ownerR2C3 == 1)
+				{
+					btnR2C3->Text = "X";
+				}
+				else if (ownerR2C3 == 2)
+				{
+					btnR2C3->Text = "O";
+				}
 			}
 			btnR2C3->Enabled = false;
 			EndCurrentTurn(ownerR2C3);
 		}
 		System::Void btnR3C1_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR3C1 = currentPlayer;
-			if (ownerR3C1 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR3C1 = currentPlayer;
 				btnR3C1->Text = "X";
 			}
-			else if (ownerR3C1 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR3C1->Text = "O";
+				ownerR3C1 = currentPlayer;
+				if (ownerR3C1 == 1)
+				{
+					btnR3C1->Text = "X";
+				}
+				else if (ownerR3C1 == 2)
+				{
+					btnR3C1->Text = "O";
+				}
 			}
 			btnR3C1->Enabled = false;
 			EndCurrentTurn(ownerR3C1);
 		}
 		System::Void btnR3C2_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR3C2 = currentPlayer;
-			if (ownerR3C2 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR3C2 = currentPlayer;
 				btnR3C2->Text = "X";
 			}
-			else if (ownerR3C2 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR3C2->Text = "O";
+				ownerR3C2 = currentPlayer;
+				if (ownerR3C2 == 1)
+				{
+					btnR3C2->Text = "X";
+				}
+				else if (ownerR3C2 == 2)
+				{
+					btnR3C2->Text = "O";
+				}
 			}
 			btnR3C2->Enabled = false;
 			EndCurrentTurn(ownerR3C2);
 		}
 		System::Void btnR3C3_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			ownerR3C3 = currentPlayer;
-			if (ownerR3C3 == 1)
+			if (selectedOpponentType == 1)
 			{
+				ownerR3C3 = currentPlayer;
 				btnR3C3->Text = "X";
 			}
-			else if (ownerR3C3 == 2)
+			else if (selectedOpponentType == 2)
 			{
-				btnR3C3->Text = "O";
+				ownerR3C3 = currentPlayer;
+				if (ownerR3C3 == 1)
+				{
+					btnR3C3->Text = "X";
+				}
+				else if (ownerR3C3 == 2)
+				{
+					btnR3C3->Text = "O";
+				}
 			}
 			btnR3C3->Enabled = false;
 			EndCurrentTurn(ownerR3C3);
@@ -537,7 +707,7 @@ namespace TicTacToe {
 				player1Wins = 0;
 				player2Wins = 0;
 			}
-			StartGame(selectedOpponentType);
+			StartGame();
 		}
 	protected:
 		/// <summary>
