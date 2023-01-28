@@ -1,4 +1,5 @@
 #pragma once
+#include "MainWindow.h"
 
 namespace TicTacToe {
 
@@ -20,8 +21,21 @@ namespace TicTacToe {
 		OpponentSelectionWindow(void)
 		{
 			InitializeComponent();
+			opponentType = 0;
 		}
-
+		void SelectOpponent(int opponentType)
+		{
+			if (opponentType == 1)
+			{
+				MainWindow^ mainWindow = gcnew MainWindow(opponentType);
+				mainWindow->Show();
+			}
+			else if (opponentType == 2)
+			{
+				MainWindow^ mainWindow = gcnew MainWindow(opponentType);
+				mainWindow->Show();
+			}
+		}
 	protected:
 		/// <summary>
 		/// Clean up any resources being used.
@@ -168,11 +182,11 @@ namespace TicTacToe {
 #pragma endregion
 	private: System::Void btnCPU_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		opponentType = 1;
+		SelectOpponent(opponentType = 1);
 	}
 	private: System::Void btnHuman_Click(System::Object^ sender, System::EventArgs^ e)
 	{
-		opponentType = 2;
+		SelectOpponent(opponentType = 2);
 	}
 };
 }

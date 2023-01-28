@@ -20,6 +20,8 @@ namespace TicTacToe {
 		// constant variables to hold the total number of rows and columns
 		const int ROWS = 3;
 		const int COLS = 3;
+		// variable to store the opponent type after it has been selected
+		int selectedOpponentType;
 		// variable to store the current player number
 		int currentPlayer;
 		// variables to store the player number that claimed the corresponding position
@@ -30,28 +32,25 @@ namespace TicTacToe {
 		bool isWinner = false;
 		// variable for storing the results of answering 'Yes' or 'No' to message box prompts
 		System::Windows::Forms::DialogResult result;
-		MainWindow(void)
+		MainWindow(int opponentType)
 		{
-			OpponentSelectionWindow^ selectOpponentForm = gcnew OpponentSelectionWindow;
-			selectOpponentForm->Show();
-			if (selectOpponentForm->opponentType == 1)
-			{
-
-			}
-			else if (selectOpponentForm->opponentType == 2)
-			{
-
-			}
 			InitializeComponent();
-			StartGame();
+			StartGame(opponentType);
 		}
-		void StartGame()
+		void StartGame(int selectedOpponentType)
 		{
-			ResetGame();
-			currentPlayer = (rand() % 2) + 1;
-			MessageBox::Show("Player " + currentPlayer + " will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
-			ShowCurrentTurn(currentPlayer);
-			UpdateWinCounters();
+			if (selectedOpponentType == 1)
+			{
+
+			}
+			else if (selectedOpponentType == 2)
+			{
+				ResetGame();
+				currentPlayer = (rand() % 2) + 1;
+				MessageBox::Show("Player " + currentPlayer + " will go first", "Starting Player", MessageBoxButtons::OK, MessageBoxIcon::Information);
+				ShowCurrentTurn(currentPlayer);
+				UpdateWinCounters();
+			}
 		}
 		void UpdateWinCounters()
 		{
@@ -355,7 +354,7 @@ namespace TicTacToe {
 				result = MessageBox::Show("It's a draw! Do you want to start over?", "It's a Draw!", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					StartGame();
+					StartGame(selectedOpponentType);
 					for (int i = 0; i < ROWS; i++)
 					{
 						for (int j = 0; j < COLS; j++)
@@ -374,7 +373,7 @@ namespace TicTacToe {
 				result = MessageBox::Show("Do you want a rematch?", "Rematch", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
 				if (result == System::Windows::Forms::DialogResult::Yes)
 				{
-					StartGame();
+					StartGame(selectedOpponentType);
 					for (int i = 0; i < ROWS; i++)
 					{
 						for (int j = 0; j < COLS; j++)
@@ -524,7 +523,7 @@ namespace TicTacToe {
 				player1Wins = 0;
 				player2Wins = 0;
 			}
-			StartGame();
+			StartGame(selectedOpponentType);
 		}
 	protected:
 		/// <summary>
