@@ -38,6 +38,9 @@ namespace TicTacToe {
 			selectedOpponentType = opponentType;
 			StartGame();
 		}
+		/// <summary>
+		/// method that starts the game by declaring who the starting player is
+		/// </summary>
 		void StartGame()
 		{
 			if (selectedOpponentType == 1)
@@ -67,11 +70,18 @@ namespace TicTacToe {
 				UpdateWinCounters();
 			}
 		}
+		/// <summary>
+		/// updates the labels for the win counters of each player
+		/// </summary>
 		void UpdateWinCounters()
 		{
 			lblPlayer1Wins->Text = player1Wins.ToString();
 			lblPlayer2Wins->Text = player2Wins.ToString();
 		}
+		/// <summary>
+		/// changes the label of the arrow to show which player's turn it is
+		/// </summary>
+		/// <param name="currentPlayer"></param>
 		void ShowCurrentTurn(int currentPlayer)
 		{
 			if (currentPlayer == 1)
@@ -83,6 +93,10 @@ namespace TicTacToe {
 				lblCurrentPlayer->Text = ">";
 			}
 		}
+		/// <summary>
+		/// method that ends the current player's turn so that the opponent can make their move
+		/// </summary>
+		/// <param name="currentPlayerNo"></param>
 		void EndCurrentTurn(int currentPlayerNo)
 		{
 			if (selectedOpponentType == 1)
@@ -113,6 +127,11 @@ namespace TicTacToe {
 				ShowCurrentTurn(currentPlayer);
 			}
 		}
+		/// <summary>
+		/// method that defines how the CPU makes their move
+		/// uses a 2D array that maps out the current owner of each square
+		/// the CPU will then take an unoccupied space by comparing if the randomised square is 0 (unowned) or re-run the method if the square is 1 or 2 (already taken)
+		/// </summary>
 		void CPUTurn()
 		{
 			int moves[3][3] = { { ownerR1C1, ownerR1C2, ownerR1C3 },
@@ -120,6 +139,14 @@ namespace TicTacToe {
 							    { ownerR3C1, ownerR3C2, ownerR3C3 } };
 			int randomRow = rand() % 3;
 			int randomCol = rand() % 3;
+			if (moves[randomRow][randomCol] == 2)
+			{
+				CPUTurn();
+			}
+			if (moves[randomRow][randomCol] == 1)
+			{
+				CPUTurn();
+			}
 			if (moves[randomRow][randomCol] == 0)
 			{
 				// button indexes
@@ -188,10 +215,6 @@ namespace TicTacToe {
 				}
 				EndCurrentTurn(2);
 			}
-			else if (moves[randomRow][randomCol] != 0)
-			{
-				CPUTurn();
-			}
 		}
 		/// <summary>
 		/// resets all buttons / positions back to their default properties
@@ -238,6 +261,9 @@ namespace TicTacToe {
 			ownerR3C2 = 0;
 			ownerR3C3 = 0;
 		}
+		/// <summary>
+		/// uses a 2D array to map out each square and compares the owner value of each space to determine if there is a winner
+		/// </summary>
 		void CheckForWinner()
 		{
 			// 2D int array for game (to store the player number for each claimed space)
@@ -793,7 +819,7 @@ namespace TicTacToe {
 			this->pnlBackground->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->pnlBackground->Location = System::Drawing::Point(0, 0);
 			this->pnlBackground->Name = L"pnlBackground";
-			this->pnlBackground->Size = System::Drawing::Size(484, 461);
+			this->pnlBackground->Size = System::Drawing::Size(734, 711);
 			this->pnlBackground->TabIndex = 0;
 			// 
 			// pnlInformation
@@ -808,16 +834,16 @@ namespace TicTacToe {
 			this->pnlInformation->Controls->Add(this->lblPlayer1);
 			this->pnlInformation->Controls->Add(this->btnReset);
 			this->pnlInformation->Controls->Add(this->lblCurrentTurn);
-			this->pnlInformation->Location = System::Drawing::Point(75, 379);
+			this->pnlInformation->Location = System::Drawing::Point(75, 629);
 			this->pnlInformation->Name = L"pnlInformation";
-			this->pnlInformation->Size = System::Drawing::Size(350, 64);
+			this->pnlInformation->Size = System::Drawing::Size(600, 64);
 			this->pnlInformation->TabIndex = 9;
 			// 
 			// lblCurrentPlayer
 			// 
 			this->lblCurrentPlayer->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblCurrentPlayer->AutoSize = true;
-			this->lblCurrentPlayer->Location = System::Drawing::Point(163, 18);
+			this->lblCurrentPlayer->Location = System::Drawing::Point(288, 18);
 			this->lblCurrentPlayer->Name = L"lblCurrentPlayer";
 			this->lblCurrentPlayer->Size = System::Drawing::Size(16, 18);
 			this->lblCurrentPlayer->TabIndex = 7;
@@ -827,7 +853,7 @@ namespace TicTacToe {
 			// 
 			this->lblPlayer2Wins->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblPlayer2Wins->AutoSize = true;
-			this->lblPlayer2Wins->Location = System::Drawing::Point(288, 37);
+			this->lblPlayer2Wins->Location = System::Drawing::Point(413, 37);
 			this->lblPlayer2Wins->Name = L"lblPlayer2Wins";
 			this->lblPlayer2Wins->Size = System::Drawing::Size(18, 18);
 			this->lblPlayer2Wins->TabIndex = 6;
@@ -837,7 +863,7 @@ namespace TicTacToe {
 			// 
 			this->lblPlayer1Wins->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblPlayer1Wins->AutoSize = true;
-			this->lblPlayer1Wins->Location = System::Drawing::Point(35, 38);
+			this->lblPlayer1Wins->Location = System::Drawing::Point(160, 38);
 			this->lblPlayer1Wins->Name = L"lblPlayer1Wins";
 			this->lblPlayer1Wins->Size = System::Drawing::Size(18, 18);
 			this->lblPlayer1Wins->TabIndex = 5;
@@ -847,7 +873,7 @@ namespace TicTacToe {
 			// 
 			this->lblPlayer2->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblPlayer2->AutoSize = true;
-			this->lblPlayer2->Location = System::Drawing::Point(254, 13);
+			this->lblPlayer2->Location = System::Drawing::Point(379, 13);
 			this->lblPlayer2->Name = L"lblPlayer2";
 			this->lblPlayer2->Size = System::Drawing::Size(90, 18);
 			this->lblPlayer2->TabIndex = 4;
@@ -857,7 +883,7 @@ namespace TicTacToe {
 			// 
 			this->lblPlayer1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblPlayer1->AutoSize = true;
-			this->lblPlayer1->Location = System::Drawing::Point(7, 13);
+			this->lblPlayer1->Location = System::Drawing::Point(132, 13);
 			this->lblPlayer1->Name = L"lblPlayer1";
 			this->lblPlayer1->Size = System::Drawing::Size(90, 18);
 			this->lblPlayer1->TabIndex = 3;
@@ -871,7 +897,7 @@ namespace TicTacToe {
 			this->btnReset->FlatAppearance->BorderSize = 5;
 			this->btnReset->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->btnReset->ForeColor = System::Drawing::SystemColors::ControlText;
-			this->btnReset->Location = System::Drawing::Point(121, 36);
+			this->btnReset->Location = System::Drawing::Point(246, 36);
 			this->btnReset->Name = L"btnReset";
 			this->btnReset->Size = System::Drawing::Size(108, 23);
 			this->btnReset->TabIndex = 2;
@@ -883,7 +909,7 @@ namespace TicTacToe {
 			// 
 			this->lblCurrentTurn->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->lblCurrentTurn->AutoSize = true;
-			this->lblCurrentTurn->Location = System::Drawing::Point(123, 0);
+			this->lblCurrentTurn->Location = System::Drawing::Point(248, 0);
 			this->lblCurrentTurn->Name = L"lblCurrentTurn";
 			this->lblCurrentTurn->Size = System::Drawing::Size(106, 18);
 			this->lblCurrentTurn->TabIndex = 0;
@@ -906,7 +932,7 @@ namespace TicTacToe {
 			this->pnlGameArea->Controls->Add(this->btnR1C1);
 			this->pnlGameArea->Location = System::Drawing::Point(75, 11);
 			this->pnlGameArea->Name = L"pnlGameArea";
-			this->pnlGameArea->Size = System::Drawing::Size(350, 350);
+			this->pnlGameArea->Size = System::Drawing::Size(600, 600);
 			this->pnlGameArea->TabIndex = 0;
 			// 
 			// btnR3C3
@@ -918,11 +944,11 @@ namespace TicTacToe {
 			this->btnR3C3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR3C3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR3C3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR3C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR3C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR3C3->Location = System::Drawing::Point(247, 247);
+			this->btnR3C3->Location = System::Drawing::Point(416, 408);
 			this->btnR3C3->Name = L"btnR3C3";
-			this->btnR3C3->Size = System::Drawing::Size(100, 100);
+			this->btnR3C3->Size = System::Drawing::Size(150, 150);
 			this->btnR3C3->TabIndex = 8;
 			this->btnR3C3->Text = L"X";
 			this->btnR3C3->UseVisualStyleBackColor = true;
@@ -937,11 +963,11 @@ namespace TicTacToe {
 			this->btnR3C2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR3C2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR3C2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR3C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR3C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR3C2->Location = System::Drawing::Point(125, 247);
+			this->btnR3C2->Location = System::Drawing::Point(224, 408);
 			this->btnR3C2->Name = L"btnR3C2";
-			this->btnR3C2->Size = System::Drawing::Size(100, 100);
+			this->btnR3C2->Size = System::Drawing::Size(150, 150);
 			this->btnR3C2->TabIndex = 7;
 			this->btnR3C2->Text = L"X";
 			this->btnR3C2->UseVisualStyleBackColor = true;
@@ -956,11 +982,11 @@ namespace TicTacToe {
 			this->btnR3C1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR3C1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR3C1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR3C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR3C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR3C1->Location = System::Drawing::Point(3, 247);
+			this->btnR3C1->Location = System::Drawing::Point(38, 408);
 			this->btnR3C1->Name = L"btnR3C1";
-			this->btnR3C1->Size = System::Drawing::Size(100, 100);
+			this->btnR3C1->Size = System::Drawing::Size(150, 150);
 			this->btnR3C1->TabIndex = 6;
 			this->btnR3C1->Text = L"X";
 			this->btnR3C1->UseVisualStyleBackColor = true;
@@ -975,11 +1001,11 @@ namespace TicTacToe {
 			this->btnR2C3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR2C3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR2C3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR2C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR2C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR2C3->Location = System::Drawing::Point(247, 125);
+			this->btnR2C3->Location = System::Drawing::Point(416, 226);
 			this->btnR2C3->Name = L"btnR2C3";
-			this->btnR2C3->Size = System::Drawing::Size(100, 100);
+			this->btnR2C3->Size = System::Drawing::Size(150, 150);
 			this->btnR2C3->TabIndex = 5;
 			this->btnR2C3->Text = L"X";
 			this->btnR2C3->UseVisualStyleBackColor = true;
@@ -994,11 +1020,11 @@ namespace TicTacToe {
 			this->btnR2C2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR2C2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR2C2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR2C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR2C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR2C2->Location = System::Drawing::Point(125, 125);
+			this->btnR2C2->Location = System::Drawing::Point(224, 226);
 			this->btnR2C2->Name = L"btnR2C2";
-			this->btnR2C2->Size = System::Drawing::Size(100, 100);
+			this->btnR2C2->Size = System::Drawing::Size(150, 150);
 			this->btnR2C2->TabIndex = 4;
 			this->btnR2C2->Text = L"X";
 			this->btnR2C2->UseVisualStyleBackColor = true;
@@ -1013,11 +1039,11 @@ namespace TicTacToe {
 			this->btnR2C1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR2C1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR2C1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR2C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR2C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR2C1->Location = System::Drawing::Point(3, 125);
+			this->btnR2C1->Location = System::Drawing::Point(38, 226);
 			this->btnR2C1->Name = L"btnR2C1";
-			this->btnR2C1->Size = System::Drawing::Size(100, 100);
+			this->btnR2C1->Size = System::Drawing::Size(150, 150);
 			this->btnR2C1->TabIndex = 3;
 			this->btnR2C1->Text = L"X";
 			this->btnR2C1->UseVisualStyleBackColor = true;
@@ -1032,11 +1058,11 @@ namespace TicTacToe {
 			this->btnR1C3->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR1C3->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR1C3->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR1C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR1C3->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR1C3->Location = System::Drawing::Point(247, 3);
+			this->btnR1C3->Location = System::Drawing::Point(416, 42);
 			this->btnR1C3->Name = L"btnR1C3";
-			this->btnR1C3->Size = System::Drawing::Size(100, 100);
+			this->btnR1C3->Size = System::Drawing::Size(150, 150);
 			this->btnR1C3->TabIndex = 2;
 			this->btnR1C3->Text = L"X";
 			this->btnR1C3->UseVisualStyleBackColor = true;
@@ -1051,11 +1077,11 @@ namespace TicTacToe {
 			this->btnR1C2->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR1C2->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR1C2->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR1C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR1C2->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR1C2->Location = System::Drawing::Point(125, 3);
+			this->btnR1C2->Location = System::Drawing::Point(224, 42);
 			this->btnR1C2->Name = L"btnR1C2";
-			this->btnR1C2->Size = System::Drawing::Size(100, 100);
+			this->btnR1C2->Size = System::Drawing::Size(150, 150);
 			this->btnR1C2->TabIndex = 1;
 			this->btnR1C2->Text = L"X";
 			this->btnR1C2->UseVisualStyleBackColor = true;
@@ -1070,11 +1096,11 @@ namespace TicTacToe {
 			this->btnR1C1->FlatAppearance->MouseDownBackColor = System::Drawing::Color::LightCoral;
 			this->btnR1C1->FlatAppearance->MouseOverBackColor = System::Drawing::Color::Maroon;
 			this->btnR1C1->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
-			this->btnR1C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 36, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->btnR1C1->Font = (gcnew System::Drawing::Font(L"EurostileEF", 48, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->btnR1C1->Location = System::Drawing::Point(3, 3);
+			this->btnR1C1->Location = System::Drawing::Point(38, 42);
 			this->btnR1C1->Name = L"btnR1C1";
-			this->btnR1C1->Size = System::Drawing::Size(100, 100);
+			this->btnR1C1->Size = System::Drawing::Size(150, 150);
 			this->btnR1C1->TabIndex = 0;
 			this->btnR1C1->Text = L"X";
 			this->btnR1C1->UseVisualStyleBackColor = true;
@@ -1085,14 +1111,14 @@ namespace TicTacToe {
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 18);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::Firebrick;
-			this->ClientSize = System::Drawing::Size(484, 461);
+			this->ClientSize = System::Drawing::Size(734, 711);
 			this->Controls->Add(this->pnlBackground);
 			this->Font = (gcnew System::Drawing::Font(L"EurostileEF", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(5, 4, 5, 4);
-			this->MaximumSize = System::Drawing::Size(800, 800);
-			this->MinimumSize = System::Drawing::Size(500, 500);
+			this->MaximumSize = System::Drawing::Size(1250, 1250);
+			this->MinimumSize = System::Drawing::Size(750, 750);
 			this->Name = L"MainWindow";
 			this->Text = L"Tic-Tac-Toe";
 			this->pnlBackground->ResumeLayout(false);
